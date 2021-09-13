@@ -1,0 +1,10 @@
+name: ${project.artifactId}
+version: ${project.version}
+main: net.ddns.mrtiptap.servermetrics.ServerMetrics
+
+author: MrTipTap
+load: STARTUP
+description: Exposes player statistics and technical server metrics.
+database: false
+prefix: ServerMetrics
+
