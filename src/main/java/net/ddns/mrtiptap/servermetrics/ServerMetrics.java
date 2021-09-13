@@ -6,12 +6,12 @@ public class ServerMetrics extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        super.onEnable();
+        getLogger().info("Enabling ServerMetrics plugin");
     }
 
     @Override
     public void onDisable() {
-        super.onDisable();
+        getLogger().info("Disabling ServerMetrics plugin");
     }
 
 }

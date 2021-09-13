@@ -1,6 +1,7 @@
 name: ServerMetrics
 main: net.ddns.mrtiptap.servermetrics.ServerMetrics
 version: ${project.version}
+api-version: 1.17
 
 description: Exposes player statistics and technical server metrics.
 author: MrTipTap
