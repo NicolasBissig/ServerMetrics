@@ -1,7 +1,8 @@
 package net.ddns.mrtiptap.servermetrics;
 
 import io.micrometer.core.instrument.composite.CompositeMeterRegistry;
-import net.ddns.mrtiptap.servermetrics.metrics.SystemMetrics;
+import net.ddns.mrtiptap.servermetrics.metrics.internal.SystemMetrics;
+import net.ddns.mrtiptap.servermetrics.metrics.server.MinecraftServerMetrics;
 import net.ddns.mrtiptap.servermetrics.metricsserver.PrometheusMetricsServer;
 import org.bukkit.plugin.java.JavaPlugin;
 import java.io.IOException;
@@ -20,6 +21,7 @@ public class ServerMetrics extends JavaPlugin {
         final CompositeMeterRegistry registry = new CompositeMeterRegistry();
 
         new SystemMetrics(getConfig().getConfigurationSection("metrics.internal")).bindTo(registry);
+        new MinecraftServerMetrics(getServer(), getConfig().getConfigurationSection("metrics.server")).bindTo(registry);
 
         metricsServer = new PrometheusMetricsServer(registry, getLogger(), endpoint, port);
         try {

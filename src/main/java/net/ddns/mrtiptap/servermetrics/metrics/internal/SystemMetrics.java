@@ -1,4 +1,4 @@
-package net.ddns.mrtiptap.servermetrics.metrics;
+package net.ddns.mrtiptap.servermetrics.metrics.internal;
 
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.binder.MeterBinder;
