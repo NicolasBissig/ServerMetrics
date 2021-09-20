@@ -1,5 +1,5 @@
 name: ServerMetrics
-main: net.ddns.mrtiptap.servermetrics.ServerMetrics
+main: ${mainClass}
 version: ${project.version}
 api-version: 1.17
 

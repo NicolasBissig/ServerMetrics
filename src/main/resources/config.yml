@@ -1,0 +1,16 @@
+prometheus:
+  endpoint: /metrics
+  port: 8080
+
+metrics:
+  internal:
+    ClassLoader: true
+    DiskSpace: true
+    FileDescriptor: true
+    JvmGc: true
+    JvmHeapPresure: true
+    JvmInfo: true
+    JvmMemory: true
+    JvmThread: true
+    Processor: true
+    Uptime: true
