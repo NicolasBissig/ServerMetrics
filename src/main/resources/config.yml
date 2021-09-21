@@ -19,3 +19,4 @@ metrics:
   server:
     PlayersOnline: true
     AverageTickTime: true
+    ChunksLoaded: true
