@@ -15,20 +15,24 @@ public class ServerMetrics extends JavaPlugin {
     public void onEnable() {
         saveDefaultConfig();
 
-        final String endpoint = getConfig().getString("prometheus.endpoint");
-        final int port = getConfig().getInt("prometheus.port");
+        if (getConfig().getBoolean("enabled")) {
+            final String endpoint = getConfig().getString("prometheus.endpoint");
+            final int port = getConfig().getInt("prometheus.port");
 
-        final CompositeMeterRegistry registry = new CompositeMeterRegistry();
+            final CompositeMeterRegistry registry = new CompositeMeterRegistry();
 
-        new SystemMetrics(getConfig().getConfigurationSection("metrics.internal")).bindTo(registry);
-        new MinecraftServerMetrics(getServer(), getConfig().getConfigurationSection("metrics.server")).bindTo(registry);
+            new SystemMetrics(getConfig().getConfigurationSection("metrics.internal")).bindTo(registry);
+            new MinecraftServerMetrics(getServer(), getConfig().getConfigurationSection("metrics.server")).bindTo(registry);
 
-        metricsServer = new PrometheusMetricsServer(registry, getLogger(), endpoint, port);
-        try {
-            metricsServer.start();
-        } catch (IOException e) {
-            getLogger().severe("Failed to start prometheus metrics server!");
-            getLogger().severe(e.getLocalizedMessage());
+            metricsServer = new PrometheusMetricsServer(registry, getLogger(), endpoint, port);
+            try {
+                metricsServer.start();
+            } catch (IOException e) {
+                getLogger().severe("Failed to start prometheus metrics server!");
+                getLogger().severe(e.getLocalizedMessage());
+            }
+        } else {
+            getLogger().info("ServerMetrics is disabled and won't expose metrics!");
         }
     }
 

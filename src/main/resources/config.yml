@@ -1,3 +1,5 @@
+enabled: true
+
 prometheus:
   endpoint: /metrics
   port: 8080
