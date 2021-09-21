@@ -21,6 +21,7 @@ public class MinecraftServerMetrics implements MeterBinder {
         keyToMetric.put("ChunksLoaded", () -> new ChunksLoaded(minecraftServer));
         keyToMetric.put("Fullness", () -> new Fullness(minecraftServer));
         keyToMetric.put("PlayersOnline", () -> new PlayersOnline(minecraftServer));
+        keyToMetric.put("PlayersTotal", () -> new PlayersTotal(minecraftServer));
     }
 
     @Override

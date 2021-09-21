@@ -21,3 +21,4 @@ metrics:
     ChunksLoaded: true
     Fullness: true
     PlayersOnline: true
+    PlayersTotal: true
