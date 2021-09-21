@@ -18,11 +18,13 @@ public class MinecraftServerMetrics implements MeterBinder {
         this.configuration = configuration;
 
         keyToMetric.put("playersOnline", () -> new PlayersOnline(minecraftServer));
+        keyToMetric.put("Mspt", () -> new Mspt(minecraftServer));
     }
 
     @Override
     public void bindTo(@NotNull MeterRegistry registry) {
         configuration.getKeys(false).stream()
+            .filter(configuration::getBoolean)
             .map(metric -> keyToMetric.get(metric).get())
             .forEach(binder -> binder.bindTo(registry));
     }

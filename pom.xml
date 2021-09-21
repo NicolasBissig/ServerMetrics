@@ -10,10 +10,6 @@
 
     <repositories>
         <repository>
-            <id>spigot-repo</id>
-            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
-        </repository>
-        <repository>
             <id>papermc</id>
             <url>https://papermc.io/repo/repository/maven-public/</url>
         </repository>
@@ -26,12 +22,12 @@
     <properties>
         <!-- Technical -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
+        <java.version>16</java.version>
+        <maven.compiler.source>16</maven.compiler.source>
+        <maven.compiler.target>16</maven.compiler.target>
 
         <!-- Dependencies -->
-        <spigotapi.version>1.17.1-R0.1-SNAPSHOT</spigotapi.version>
+        <mcapi.version>1.17.1-R0.1-SNAPSHOT</mcapi.version>
         <micrometer.version>1.7.4</micrometer.version>
 
         <assembly-plugin.version>3.3.0</assembly-plugin.version>
@@ -45,14 +41,9 @@
     <dependencies>
         <!-- Minecraft -->
         <dependency>
-            <groupId>org.spigotmc</groupId>
-            <artifactId>spigot-api</artifactId>
-            <version>${spigotapi.version}</version>
-        </dependency>
-        <dependency>
             <groupId>io.papermc.paper</groupId>
             <artifactId>paper-api</artifactId>
-            <version>${spigotapi.version}</version>
+            <version>${mcapi.version}</version>
             <scope>provided</scope>
         </dependency>
 

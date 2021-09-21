@@ -37,6 +37,7 @@ public class SystemMetrics implements MeterBinder {
     @Override
     public void bindTo(@NotNull MeterRegistry registry) {
         configuration.getKeys(false).stream()
+            .filter(configuration::getBoolean)
             .map(metric -> keyToMetric.get(metric).get())
             .forEach(binder -> binder.bindTo(registry));
     }

@@ -16,3 +16,4 @@ metrics:
     Uptime: true
   server:
     playersOnline: true
+    Mspt: true
