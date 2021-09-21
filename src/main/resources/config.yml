@@ -17,6 +17,7 @@ metrics:
     Processor: false
     Uptime: false
   server:
-    PlayersOnline: true
     AverageTickTime: true
     ChunksLoaded: true
+    Fullness: true
+    PlayersOnline: true

@@ -8,4 +8,4 @@ See config.yml
 
 - ChunksLoaded per world
 - player statistics
-- Entities total
+- Entities total, per world, living: crashes with Thread HTTP-Dispatcher failed main thread check: Chunk getEntities call
