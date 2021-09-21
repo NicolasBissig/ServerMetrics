@@ -18,7 +18,7 @@ public class MinecraftServerMetrics implements MeterBinder {
         this.configuration = configuration;
 
         keyToMetric.put("PlayersOnline", () -> new PlayersOnline(minecraftServer));
-        keyToMetric.put("AverageTickTime", () -> new Mspt(minecraftServer));
+        keyToMetric.put("AverageTickTime", () -> new AverageTickTime(minecraftServer));
     }
 
     @Override

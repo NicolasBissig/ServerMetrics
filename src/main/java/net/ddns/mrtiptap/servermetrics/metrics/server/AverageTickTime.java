@@ -5,8 +5,8 @@ import io.micrometer.core.instrument.MeterRegistry;
 import org.bukkit.Server;
 import org.jetbrains.annotations.NotNull;
 
-public class Mspt extends MinecraftServerBinder {
-    public Mspt(Server minecraftServer) {
+public class AverageTickTime extends MinecraftServerBinder {
+    public AverageTickTime(Server minecraftServer) {
         super(minecraftServer);
     }
 
