@@ -6,16 +6,16 @@ prometheus:
 
 metrics:
   internal:
-    ClassLoader: true
-    DiskSpace: true
-    FileDescriptor: true
-    JvmGc: true
-    JvmHeapPressure: true
-    JvmInfo: true
-    JvmMemory: true
-    JvmThread: true
-    Processor: true
-    Uptime: true
+    ClassLoader: false
+    DiskSpace: false
+    FileDescriptor: false
+    JvmGc: false
+    JvmHeapPressure: false
+    JvmInfo: false
+    JvmMemory: false
+    JvmThread: false
+    Processor: false
+    Uptime: false
   server:
-    playersOnline: true
-    Mspt: true
+    PlayersOnline: true
+    AverageTickTime: true
