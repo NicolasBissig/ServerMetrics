@@ -26,7 +26,7 @@ public class SystemMetrics implements MeterBinder {
         keyToMetric.put("DiskSpace", () -> new DiskSpaceMetrics(new File("/")));
         keyToMetric.put("FileDescriptor", FileDescriptorMetrics::new);
         keyToMetric.put("JvmGc", JvmGcMetrics::new);
-        keyToMetric.put("JvmHeapPresure", JvmHeapPressureMetrics::new);
+        keyToMetric.put("JvmHeapPressure", JvmHeapPressureMetrics::new);
         keyToMetric.put("JvmInfo", JvmInfoMetrics::new);
         keyToMetric.put("JvmMemory", JvmMemoryMetrics::new);
         keyToMetric.put("JvmThread", JvmThreadMetrics::new);

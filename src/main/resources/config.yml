@@ -10,7 +10,7 @@ metrics:
     DiskSpace: true
     FileDescriptor: true
     JvmGc: true
-    JvmHeapPresure: true
+    JvmHeapPressure: true
     JvmInfo: true
     JvmMemory: true
     JvmThread: true
