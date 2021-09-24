@@ -2,7 +2,6 @@ package net.ddns.mrtiptap.servermetrics.metrics.server;
 
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.binder.MeterBinder;
-import org.bukkit.Server;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
@@ -25,12 +24,11 @@ public class MinecraftServerMetrics implements MeterBinder {
         keyToMetric.put("Fullness", c -> new Fullness(plugin, c));
         keyToMetric.put("PlayersOnline", c -> new PlayersOnline(plugin, c));
         keyToMetric.put("PlayersTotal", c -> new PlayersTotal(plugin, c));
+        keyToMetric.put("PlayerStatistics", c -> new PlayerStatistics(plugin, c));
     }
 
     @Override
     public void bindTo(@NotNull MeterRegistry registry) {
-        configuration.getKeys(false).stream();
-
         configuration.getKeys(false).stream()
             .filter(this::isMetricEnabled)
             .map(metricName -> keyToMetric

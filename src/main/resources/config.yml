@@ -25,3 +25,4 @@ metrics:
     Fullness: true
     PlayersOnline: true
     PlayersTotal: true
+    PlayerStatistics: true
