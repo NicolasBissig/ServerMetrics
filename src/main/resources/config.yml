@@ -17,7 +17,9 @@ metrics:
     Processor: false
     Uptime: false
   server:
-    AverageTickTime: true
+    TickTimes:
+      enabled: true
+      ranges: [100, 200, 1200]
     TicksPerSecond: true
     ChunksLoaded: true
     Fullness: true

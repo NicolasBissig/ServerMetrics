@@ -1,24 +1,32 @@
 package net.ddns.mrtiptap.servermetrics.ticktime;
 
 import net.ddns.mrtiptap.util.FixedSizeList;
+import org.bukkit.plugin.Plugin;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class TickTimeRecorder {
 
-    private final int ticksToRecord;
     private final FixedSizeList<Double> tickDurations;
+    private final List<Integer> ranges;
 
-    public TickTimeRecorder(int ticksToRecord) {
-        this.ticksToRecord = ticksToRecord;
+    public TickTimeRecorder(Plugin plugin, int ticksToRecord, List<Integer> ranges) {
+        this.ranges = ranges;
         tickDurations = new FixedSizeList<>(ticksToRecord);
+
+        final TickEndListener tickEndListener = new TickEndListener(this);
+
+        if (Objects.nonNull(plugin)) {
+            plugin.getServer().getPluginManager().registerEvents(tickEndListener, plugin);
+        }
     }
 
     public void recordTickTime(double duration) {
         tickDurations.push(duration);
     }
 
-    public List<TickInfo> getTickDurationInfo(int... ranges) {
+    public List<TickInfo> getTickDurationInfo() {
         final List<TickInfo> tickInfoRanges = new ArrayList<>();
         int recordedTicks = tickDurations.size();
 
@@ -29,7 +37,7 @@ public class TickTimeRecorder {
 
         int i = 0;
         for (double duration : tickDurations) {
-            if (currentRange < ranges.length && i == ranges[currentRange]) {
+            if (currentRange < ranges.size() && i == ranges.get(currentRange)) {
                 final double average = sum / Math.max(1, i);
 
                 tickInfoRanges.add(new TickInfo(min, average, max));
@@ -45,6 +53,10 @@ public class TickTimeRecorder {
 
         final double average = sum / Math.max(1, recordedTicks);
         tickInfoRanges.add(new TickInfo(min, average, max));
+
+        while (tickInfoRanges.size() < ranges.size()) {
+            tickInfoRanges.add(tickInfoRanges.get(tickInfoRanges.size() - 1));
+        }
 
         return tickInfoRanges;
     }

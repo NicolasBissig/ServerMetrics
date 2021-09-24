@@ -22,7 +22,7 @@ public class ServerMetrics extends JavaPlugin {
             final CompositeMeterRegistry registry = new CompositeMeterRegistry();
 
             new SystemMetrics(getConfig().getConfigurationSection("metrics.internal")).bindTo(registry);
-            new MinecraftServerMetrics(getServer(), getConfig().getConfigurationSection("metrics.server")).bindTo(registry);
+            new MinecraftServerMetrics(this, getConfig().getConfigurationSection("metrics.server")).bindTo(registry);
 
             metricsServer = new PrometheusMetricsServer(registry, getLogger(), endpoint, port);
             try {

@@ -3,11 +3,13 @@ package net.ddns.mrtiptap.servermetrics.metrics.server;
 import io.micrometer.core.instrument.Gauge;
 import io.micrometer.core.instrument.MeterRegistry;
 import org.bukkit.Server;
+import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 
 public class PlayersOnline extends MinecraftServerBinder {
-    public PlayersOnline(Server minecraftServer) {
-        super(minecraftServer);
+    public PlayersOnline(Plugin plugin, ConfigurationSection configuration) {
+        super(plugin, configuration);
     }
 
     @Override

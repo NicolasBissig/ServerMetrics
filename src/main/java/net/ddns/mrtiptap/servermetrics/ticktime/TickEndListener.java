@@ -2,6 +2,7 @@ package net.ddns.mrtiptap.servermetrics.ticktime;
 
 import com.destroystokyo.paper.event.server.ServerTickEndEvent;
 import lombok.RequiredArgsConstructor;
+import lombok.Singular;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 

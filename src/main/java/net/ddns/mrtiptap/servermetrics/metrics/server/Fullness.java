@@ -3,10 +3,12 @@ package net.ddns.mrtiptap.servermetrics.metrics.server;
 import io.micrometer.core.instrument.Gauge;
 import io.micrometer.core.instrument.MeterRegistry;
 import org.bukkit.Server;
+import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.plugin.Plugin;
 
 public class Fullness extends MinecraftServerBinder {
-    public Fullness(Server minecraftServer) {
-        super(minecraftServer);
+    public Fullness(Plugin plugin, ConfigurationSection configuration) {
+        super(plugin, configuration);
     }
 
     @Override

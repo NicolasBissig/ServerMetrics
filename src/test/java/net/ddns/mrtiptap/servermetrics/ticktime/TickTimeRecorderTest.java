@@ -43,13 +43,13 @@ public class TickTimeRecorderTest {
     @Test
     public void shouldCalculateCorrectAbsoluteTickTimes() {
         final int n = 10000;
-        final TickTimeRecorder recorder = new TickTimeRecorder(n);
+        final TickTimeRecorder recorder = new TickTimeRecorder(null, n, List.of(n));
 
         final List<Double> numbers = generateRandomNumbers(n);
         final TickInfo expected = toTickInfo(numbers);
 
         numbers.forEach(recorder::recordTickTime);
-        final TickInfo actual = recorder.getTickDurationInfo(n).get(0);
+        final TickInfo actual = recorder.getTickDurationInfo().get(0);
 
         assertOkay(expected, actual);
     }
@@ -66,7 +66,9 @@ public class TickTimeRecorderTest {
             numbers.add(numbers.get(i - 1) + step);
         }
 
-        final TickTimeRecorder recorder = new TickTimeRecorder(n);
+        final List<Integer> ranges = List.of(n / 4, n / 2, n);
+
+        final TickTimeRecorder recorder = new TickTimeRecorder(null, n, ranges);
         numbers.forEach(recorder::recordTickTime);
 
         Collections.reverse(numbers);
@@ -78,7 +80,7 @@ public class TickTimeRecorderTest {
         final TickInfo expectedHalf = toTickInfo(halfList);
         final TickInfo expected = toTickInfo(numbers);
 
-        final List<TickInfo> actual = recorder.getTickDurationInfo(n / 4, n / 2);
+        final List<TickInfo> actual = recorder.getTickDurationInfo();
 
         assertOkay(expected, actual.get(2));
         assertOkay(expectedHalf, actual.get(1));
@@ -89,28 +91,33 @@ public class TickTimeRecorderTest {
     public void shouldCalculateManyRangesCorrectly() {
         final int n = 1_000_000;
         final int ranges = 10;
+        final List<Integer> concreteRanges = new ArrayList<>();
+
+        for (int i = 0; i < ranges; i++) {
+            final int currentRange = (n / ranges) * (i + 1);
+            concreteRanges.add(currentRange);
+
+        }
 
         final List<Double> numbers = generateRandomNumbers(n);
 
-        final TickTimeRecorder recorder = new TickTimeRecorder(n);
+        final TickTimeRecorder recorder = new TickTimeRecorder(null, n, concreteRanges);
         numbers.forEach(recorder::recordTickTime);
 
         Collections.reverse(numbers);
 
         final List<TickInfo> expected = new ArrayList<>();
-        final int[] concreteRanges = new int[ranges];
+
 
         for (int i = 0; i < ranges; i++) {
-            final int currentRange = (n / ranges) * (i + 1);
-            concreteRanges[i] = currentRange;
-
+            final int currentRange = concreteRanges.get(i);
             final List<Double> currentValues = numbers.subList(0, currentRange);
             final TickInfo currentExpected = toTickInfo(currentValues);
 
             expected.add(currentExpected);
         }
 
-        final List<TickInfo> actual = recorder.getTickDurationInfo(concreteRanges);
+        final List<TickInfo> actual = recorder.getTickDurationInfo();
 
         for (int i = 0; i < ranges; i++) {
             assertOkay(expected.get(i), actual.get(i));
