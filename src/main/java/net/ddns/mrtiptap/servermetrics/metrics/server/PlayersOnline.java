@@ -12,7 +12,8 @@ public class PlayersOnline extends MinecraftServerBinder {
 
     @Override
     public void bindTo(@NotNull MeterRegistry registry) {
-        Gauge.builder("minecraft.players.online.total", () -> getMinecraftServer().getOnlinePlayers().size())
+        Gauge.builder("minecraft.players.online.total",
+                () -> getMinecraftServer().getOnlinePlayers().size())
             .description("Amount of players that are currently online")
             .register(registry);
     }
