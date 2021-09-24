@@ -34,6 +34,8 @@
 
         <lombok.version>1.18.20</lombok.version>
 
+        <junit.version>5.8.0</junit.version>
+
         <!-- Variables -->
         <mainClass>net.ddns.mrtiptap.servermetrics.ServerMetrics</mainClass>
     </properties>
@@ -61,13 +63,19 @@
             <version>${lombok.version}</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
         <resources>
             <resource> <!-- This is for replacing ${} stuff in plugin.yml -->
                 <directory>src/main/resources</directory>
-                <filtering>true</filtering> <!-- this is the important part, it's what replaces-->
+                <filtering>true</filtering> <!-- this is the important part, it's what replaces -->
             </resource>
         </resources>
 
