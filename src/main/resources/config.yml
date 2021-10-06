@@ -22,7 +22,5 @@ metrics:
       ranges: [ 100, 200, 1200 ]
     TicksPerSecond: true
     ChunksLoaded: true
-    Fullness: true
-    PlayersOnline: true
-    PlayersTotal: true
+    Players: true
     PlayerStatistics: true

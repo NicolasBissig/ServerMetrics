@@ -21,9 +21,7 @@ public class MinecraftServerMetrics implements MeterBinder {
         keyToMetric.put("TickTimes", c -> new TickTimes(plugin, c));
         keyToMetric.put("TicksPerSecond", c -> new TicksPerSecond(plugin, c));
         keyToMetric.put("ChunksLoaded", c -> new ChunksLoaded(plugin, c));
-        keyToMetric.put("Fullness", c -> new Fullness(plugin, c));
-        keyToMetric.put("PlayersOnline", c -> new PlayersOnline(plugin, c));
-        keyToMetric.put("PlayersTotal", c -> new PlayersTotal(plugin, c));
+        keyToMetric.put("Players", c -> new Players(plugin, c));
         keyToMetric.put("PlayerStatistics", c -> new PlayerStatistics(plugin, c));
     }
 
