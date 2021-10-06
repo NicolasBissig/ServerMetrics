@@ -3,6 +3,7 @@ package net.ddns.mrtiptap.servermetrics.metrics.server;
 import io.micrometer.core.instrument.Gauge;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Tags;
+import net.ddns.mrtiptap.servermetrics.metrics.listeners.NewPlayerJoinListener;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.Statistic;
@@ -15,18 +16,24 @@ import java.util.Objects;
 public class PlayerStatistics extends MinecraftServerBinder {
     private static final String GAUGE_PREFIX = "minecraft.player.statistic.";
 
+    private MeterRegistry registry;
+
     public PlayerStatistics(Plugin plugin, ConfigurationSection configuration) {
         super(plugin, configuration);
+
+        new NewPlayerJoinListener(getPlugin(), this::createGaugesForPlayer);
     }
 
     @Override
     public void bindTo(@NotNull MeterRegistry registry) {
+        this.registry = registry;
+
         for (OfflinePlayer player : getMinecraftServer().getOfflinePlayers()) {
-            createGaugesForPlayer(player, registry);
+            createGaugesForPlayer(player);
         }
     }
 
-    private void createGaugesForPlayer(OfflinePlayer player, MeterRegistry registry) {
+    private void createGaugesForPlayer(OfflinePlayer player) {
         final String playerName = Objects.requireNonNullElse(player.getName(), "");
         final String UUID = player.getUniqueId().toString();
         final Tags tags = Tags.of("name", playerName, "UUID", UUID);

@@ -15,8 +15,7 @@ public class ChunksLoaded extends MinecraftServerBinder {
     public ChunksLoaded(Plugin plugin, ConfigurationSection configuration) {
         super(plugin, configuration);
 
-        final WorldInitListener newWorldListener = new WorldInitListener(getPlugin(), this::registerChunksLoadedForWorld);
-        getPlugin().getServer().getPluginManager().registerEvents(newWorldListener, plugin);
+        new WorldInitListener(getPlugin(), this::registerChunksLoadedForWorld);
     }
 
     @Override
