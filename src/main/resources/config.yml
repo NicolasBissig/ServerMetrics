@@ -1,4 +1,4 @@
-enabled: true
+enabled: false
 
 prometheus:
   endpoint: /metrics
@@ -18,9 +18,9 @@ metrics:
     Uptime: false
   server:
     TickTimes:
-      enabled: true
+      enabled: false
       ranges: [ 100, 200, 1200 ]
-    TicksPerSecond: true
-    ChunksLoaded: true
-    Players: true
-    PlayerStatistics: true
+    TicksPerSecond: false
+    ChunksLoaded: false
+    Players: false
+    PlayerStatistics: false
