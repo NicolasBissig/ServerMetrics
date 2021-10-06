@@ -19,7 +19,7 @@ metrics:
   server:
     TickTimes:
       enabled: true
-      ranges: [100, 200, 1200]
+      ranges: [ 100, 200, 1200 ]
     TicksPerSecond: true
     ChunksLoaded: true
     Fullness: true
