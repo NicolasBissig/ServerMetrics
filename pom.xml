@@ -34,7 +34,7 @@
 
         <lombok.version>1.18.20</lombok.version>
 
-        <junit.version>5.8.0</junit.version>
+        <junit.version>5.8.1</junit.version>
 
         <!-- Variables -->
         <mainClass>net.ddns.mrtiptap.servermetrics.ServerMetrics</mainClass>
