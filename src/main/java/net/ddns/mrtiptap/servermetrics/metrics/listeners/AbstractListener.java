@@ -10,7 +10,7 @@ public abstract class AbstractListener<T> implements Listener {
     private final Plugin plugin;
     private final Consumer<T> consumer;
 
-    public AbstractListener(Plugin plugin, Consumer<T> playerConsumer) {
+    protected AbstractListener(Plugin plugin, Consumer<T> playerConsumer) {
         this.plugin = plugin;
         this.consumer = playerConsumer;
 
