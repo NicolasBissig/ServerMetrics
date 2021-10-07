@@ -4,10 +4,10 @@ import com.sun.net.httpserver.HttpServer;
 import io.micrometer.core.instrument.composite.CompositeMeterRegistry;
 import io.micrometer.prometheus.PrometheusConfig;
 import io.micrometer.prometheus.PrometheusMeterRegistry;
+import org.slf4j.Logger;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
-import java.util.logging.Logger;
 
 public class PrometheusMetricsServer implements AutoCloseable {
     private final PrometheusMeterRegistry registry;
@@ -37,7 +37,7 @@ public class PrometheusMetricsServer implements AutoCloseable {
         });
 
         new Thread(server::start).start();
-        log.info("Prometheus metrics available: http://localhost:" + port + endpoint);
+        log.info("Prometheus metrics available: http://localhost:{}{}", port, endpoint);
     }
 
     @Override

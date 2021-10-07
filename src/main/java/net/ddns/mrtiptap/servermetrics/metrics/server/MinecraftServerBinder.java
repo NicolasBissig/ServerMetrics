@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.bukkit.Server;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.plugin.Plugin;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
 
 @RequiredArgsConstructor
 @Getter
@@ -19,6 +19,6 @@ public abstract class MinecraftServerBinder implements MeterBinder {
     }
 
     public Logger getLogger() {
-        return plugin.getLogger();
+        return plugin.getSLF4JLogger();
     }
 }

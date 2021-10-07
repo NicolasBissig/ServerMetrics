@@ -24,15 +24,15 @@ public class ServerMetrics extends JavaPlugin {
             new SystemMetrics(getConfig().getConfigurationSection("metrics.internal")).bindTo(registry);
             new MinecraftServerMetrics(this, getConfig().getConfigurationSection("metrics.server")).bindTo(registry);
 
-            metricsServer = new PrometheusMetricsServer(registry, getLogger(), endpoint, port);
+            metricsServer = new PrometheusMetricsServer(registry, getSLF4JLogger(), endpoint, port);
             try {
                 metricsServer.start();
             } catch (IOException e) {
-                getLogger().severe("Failed to start prometheus metrics server!");
-                getLogger().severe(e.getLocalizedMessage());
+                getSLF4JLogger().error("Failed to start prometheus metrics server!");
+                getSLF4JLogger().error(e.getLocalizedMessage());
             }
         } else {
-            getLogger().info("ServerMetrics is disabled and won't expose metrics!");
+            getSLF4JLogger().info("ServerMetrics is disabled and won't expose metrics!");
         }
     }
 
