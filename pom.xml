@@ -30,6 +30,8 @@
         <mcapi.version>1.17.1-R0.1-SNAPSHOT</mcapi.version>
         <micrometer.version>1.7.4</micrometer.version>
 
+        <jetty.version>11.0.6</jetty.version>
+
         <assembly-plugin.version>3.3.0</assembly-plugin.version>
 
         <lombok.version>1.18.20</lombok.version>
@@ -54,6 +56,13 @@
             <groupId>io.micrometer</groupId>
             <artifactId>micrometer-registry-prometheus</artifactId>
             <version>${micrometer.version}</version>
+        </dependency>
+
+        <!-- Other -->
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-server</artifactId>
+            <version>${jetty.version}</version>
         </dependency>
 
         <!-- Util -->
