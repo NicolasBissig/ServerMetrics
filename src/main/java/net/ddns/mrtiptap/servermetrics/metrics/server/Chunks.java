@@ -8,26 +8,31 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 
-public class ChunksLoaded extends MinecraftServerBinder {
+public class Chunks extends MinecraftServerBinder {
 
     private MeterRegistry registry;
 
-    public ChunksLoaded(Plugin plugin, ConfigurationSection configuration) {
+    public Chunks(Plugin plugin, ConfigurationSection configuration) {
         super(plugin, configuration);
 
-        new WorldInitListener(getPlugin(), this::registerChunksLoadedForWorld);
+        new WorldInitListener(getPlugin(), this::registerMetricsForWorld);
     }
 
     @Override
     public void bindTo(@NotNull MeterRegistry registry) {
         this.registry = registry;
 
-        getMinecraftServer().getWorlds().forEach(this::registerChunksLoadedForWorld);
+        getMinecraftServer().getWorlds().forEach(this::registerMetricsForWorld);
     }
 
-    private void registerChunksLoadedForWorld(World world) {
-        Gauge.builder("minecraft.server.world.chunksloaded.total", () -> world.getLoadedChunks().length)
+    private void registerMetricsForWorld(World world) {
+        Gauge.builder("minecraft.server.world.chunks.loaded.total", () -> world.getLoadedChunks().length)
             .description("Amount of total loaded chunks in this world")
+            .tags("world", world.getName())
+            .register(registry);
+
+        Gauge.builder("minecraft.server.world.chunks.total", world::getChunkCount)
+            .description("Amount of total chunks in this world")
             .tags("world", world.getName())
             .register(registry);
     }
