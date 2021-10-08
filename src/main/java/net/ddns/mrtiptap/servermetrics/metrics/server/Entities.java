@@ -7,12 +7,14 @@ import org.bukkit.World;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
-public class ChunksLoaded extends MinecraftServerBinder {
+public class Entities extends MinecraftServerBinder {
 
     private MeterRegistry registry;
 
-    public ChunksLoaded(Plugin plugin, ConfigurationSection configuration) {
+    public Entities(Plugin plugin, ConfigurationSection configuration) {
         super(plugin, configuration);
 
         new WorldInitListener(getPlugin(), this::registerChunksLoadedForWorld);
@@ -26,8 +28,17 @@ public class ChunksLoaded extends MinecraftServerBinder {
     }
 
     private void registerChunksLoadedForWorld(World world) {
-        Gauge.builder("minecraft.server.world.chunksloaded.total", () -> world.getLoadedChunks().length)
-            .description("Amount of total loaded chunks in this world")
+        Gauge.builder("minecraft.server.world.entities.total", () -> {
+                try {
+                    final Future<Integer> amountOfEntities = getMinecraftServer().getScheduler()
+                        .callSyncMethod(getPlugin(), world::getEntityCount);
+                    return amountOfEntities.get();
+                } catch (ExecutionException | InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    return null;
+                }
+            })
+            .description("Amount of total entities in this world")
             .tags("world", world.getName())
             .register(registry);
     }

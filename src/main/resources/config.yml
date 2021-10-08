@@ -17,6 +17,7 @@ metrics:
     Processor: false
     Uptime: false
   server:
+    Entities: false
     TickTimes:
       enabled: false
       ranges: [ 100, 200, 1200 ]

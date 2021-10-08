@@ -18,6 +18,7 @@ public class MinecraftServerMetrics implements MeterBinder {
         this.configuration = configuration;
         keyToMetric = new HashMap<>();
 
+        keyToMetric.put("Entities", c -> new Entities(plugin, c));
         keyToMetric.put("TickTimes", c -> new TickTimes(plugin, c));
         keyToMetric.put("TicksPerSecond", c -> new TicksPerSecond(plugin, c));
         keyToMetric.put("ChunksLoaded", c -> new ChunksLoaded(plugin, c));
