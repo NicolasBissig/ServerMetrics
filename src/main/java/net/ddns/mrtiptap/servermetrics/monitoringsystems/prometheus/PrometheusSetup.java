@@ -13,8 +13,8 @@ public class PrometheusSetup {
 
     public PrometheusSetup(ConfigurationSection configurationSection, Plugin plugin) {
         this.plugin = plugin;
-        endpoint = configurationSection.getString("prometheus.endpoint");
-        port = configurationSection.getInt("prometheus.port");
+        endpoint = configurationSection.getString("endpoint");
+        port = configurationSection.getInt("port");
     }
 
     public void setup(CompositeMeterRegistry registry) {
