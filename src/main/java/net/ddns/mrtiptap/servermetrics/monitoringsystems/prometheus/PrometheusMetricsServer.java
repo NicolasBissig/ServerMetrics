@@ -1,4 +1,4 @@
-package net.ddns.mrtiptap.servermetrics.metricsserver;
+package net.ddns.mrtiptap.servermetrics.monitoringsystems.prometheus;
 
 import com.sun.net.httpserver.HttpServer;
 import io.micrometer.core.instrument.composite.CompositeMeterRegistry;
