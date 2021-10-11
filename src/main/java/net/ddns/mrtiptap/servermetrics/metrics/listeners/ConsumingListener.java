@@ -6,11 +6,11 @@ import org.bukkit.plugin.Plugin;
 import java.util.function.Consumer;
 
 @Getter
-public abstract class AbstractListener<T> implements Listener {
+public abstract class ConsumingListener<T> implements Listener {
     private final Plugin plugin;
     private final Consumer<T> consumer;
 
-    protected AbstractListener(Plugin plugin, Consumer<T> playerConsumer) {
+    protected ConsumingListener(Plugin plugin, Consumer<T> playerConsumer) {
         this.plugin = plugin;
         this.consumer = playerConsumer;
 

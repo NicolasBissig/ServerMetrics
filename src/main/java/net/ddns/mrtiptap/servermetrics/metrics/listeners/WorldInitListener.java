@@ -6,7 +6,7 @@ import org.bukkit.event.world.WorldInitEvent;
 import org.bukkit.plugin.Plugin;
 import java.util.function.Consumer;
 
-public class WorldInitListener extends AbstractListener<World> {
+public class WorldInitListener extends ConsumingListener<World> {
 
     public WorldInitListener(Plugin plugin, Consumer<World> playerConsumer) {
         super(plugin, playerConsumer);

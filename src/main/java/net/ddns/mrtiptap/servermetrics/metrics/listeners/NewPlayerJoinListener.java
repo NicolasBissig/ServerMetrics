@@ -6,7 +6,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.Plugin;
 import java.util.function.Consumer;
 
-public class NewPlayerJoinListener extends AbstractListener<Player> {
+public class NewPlayerJoinListener extends ConsumingListener<Player> {
     public NewPlayerJoinListener(Plugin plugin, Consumer<Player> playerConsumer) {
         super(plugin, playerConsumer);
     }
