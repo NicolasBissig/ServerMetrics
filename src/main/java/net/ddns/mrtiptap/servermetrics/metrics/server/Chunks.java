@@ -30,10 +30,5 @@ public class Chunks extends MinecraftServerBinder {
             .description("Amount of total loaded chunks in this world")
             .tags("world", world.getName())
             .register(registry);
-
-        Gauge.builder("minecraft.server.world.chunks.total", world::getChunkCount)
-            .description("Amount of total chunks in this world")
-            .tags("world", world.getName())
-            .register(registry);
     }
 }
