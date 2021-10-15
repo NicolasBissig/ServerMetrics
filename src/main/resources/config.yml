@@ -21,7 +21,6 @@ metrics:
     TickTimes:
       enabled: false
       ranges: [ 100, 200, 1200 ]
-    TicksPerSecond: false
     Chunks: false
     Players: false
     PlayerStatistics: false

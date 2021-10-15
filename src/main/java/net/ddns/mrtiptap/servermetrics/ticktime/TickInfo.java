@@ -7,4 +7,5 @@ public class TickInfo {
     double minimum;
     double average;
     double maximum;
+    double durationSum;
 }

@@ -101,7 +101,11 @@ public class TickTimeRecorder {
             if (currentRange < ranges.size() && i == ranges.get(currentRange)) {
                 final double average = sum / Math.max(1, i);
 
-                tickInfoRanges.add(new TickInfo(min / NS_PER_MS, average / NS_PER_MS, max / NS_PER_MS));
+                tickInfoRanges.add(new TickInfo(
+                    min / NS_PER_MS,
+                    average / NS_PER_MS,
+                    max / NS_PER_MS,
+                    sum / NS_PER_MS));
                 currentRange++;
             }
 
@@ -113,7 +117,11 @@ public class TickTimeRecorder {
         }
 
         final double average = sum / Math.max(1, recordedTicks);
-        tickInfoRanges.add(new TickInfo(min / NS_PER_MS, average / NS_PER_MS, max / NS_PER_MS));
+        tickInfoRanges.add(new TickInfo(
+            min / NS_PER_MS,
+            average / NS_PER_MS,
+            max / NS_PER_MS,
+            sum / NS_PER_MS));
 
         while (tickInfoRanges.size() < ranges.size()) {
             tickInfoRanges.add(tickInfoRanges.get(tickInfoRanges.size() - 1));
