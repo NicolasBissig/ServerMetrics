@@ -31,6 +31,17 @@ public class TickTimeRecorder {
     }
 
     /**
+     * Constructor for testing
+     */
+    TickTimeRecorder(int ticksToRecord, List<Integer> ranges) {
+        this.plugin = null;
+        this.ranges = ranges;
+        this.tickDurationArray = null;
+
+        tickDurations = new FixedSizeList<>(ticksToRecord);
+    }
+
+    /**
      * Minecraft internally tracks tick times, but the spigot api does not expose these tick times.
      * They can be found via reflection when searching for a long array.
      *
@@ -83,7 +94,7 @@ public class TickTimeRecorder {
         }
     }
 
-    private void recordTickTime(long duration) {
+    void recordTickTime(long duration) {
         tickDurations.push(duration);
     }
 

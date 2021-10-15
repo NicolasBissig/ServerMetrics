@@ -1,9 +1,10 @@
 package net.ddns.mrtiptap.util;
 
-import static org.junit.Assert.assertEquals;
 
-import org.junit.Assert;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+
+import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -23,7 +24,7 @@ public class FixedSizeListTest {
 
     private <T> void assertElementsAre(FixedSizeList<T> list, List<T> elements) {
         if (list.size() != elements.size()) {
-            Assert.fail("List does not have the requested amount of elements: " +
+            fail("List does not have the requested amount of elements: " +
                 "is " + list.size() + ", expected: " + elements.size());
         } else {
             int i = 0;
