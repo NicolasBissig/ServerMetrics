@@ -48,6 +48,7 @@
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
             <version>${mcapi.version}</version>
+            <scope>provided</scope>
         </dependency>
 
         <!-- Micrometer -->
@@ -68,6 +69,7 @@
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
             <version>${jb-annotations.version}</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
