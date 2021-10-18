@@ -18,12 +18,12 @@ public class PrometheusSetup {
     }
 
     public void setup(CompositeMeterRegistry registry) {
-        metricsServer = new PrometheusMetricsServer(registry, plugin.getSLF4JLogger(), endpoint, port);
+        metricsServer = new PrometheusMetricsServer(registry, plugin.getLogger(), endpoint, port);
         try {
             metricsServer.start();
         } catch (IOException e) {
-            plugin.getSLF4JLogger().error("Failed to start prometheus metrics server!");
-            plugin.getSLF4JLogger().error(e.getLocalizedMessage());
+            plugin.getLogger().severe("Failed to start prometheus metrics server!");
+            plugin.getLogger().severe(e.getLocalizedMessage());
         }
     }
 

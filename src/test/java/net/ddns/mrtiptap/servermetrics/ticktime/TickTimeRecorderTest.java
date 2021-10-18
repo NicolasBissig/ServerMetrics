@@ -1,8 +1,9 @@
 package net.ddns.mrtiptap.servermetrics.ticktime;
 
-import static org.junit.Assert.assertEquals;
 
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -12,26 +13,32 @@ public class TickTimeRecorderTest {
 
     private final static double DELTA = 0.0000000001;
 
-    private List<Double> generateRandomNumbers(int count) {
+    private List<Long> generateRandomNumbers(int count) {
+        final int max = 50_000_000 - 1;
+
         final Random random = new Random();
-        final List<Double> numbers = new ArrayList<>();
+        final List<Long> numbers = new ArrayList<>();
 
         for (int i = 0; i < count; i++) {
-            numbers.add(random.nextDouble());
+            numbers.add((long) random.nextInt(max) + 1);
         }
 
         return numbers;
     }
 
-    private TickInfo toTickInfo(List<Double> input) {
+    private TickInfo toTickInfo(List<Long> input) {
+        final double NS_PER_MS = 1_000_000;
+
         final double min = Collections.min(input);
         final double max = Collections.max(input);
-        final double avg = input.stream()
-            .mapToDouble(d -> d)
-            .average()
-            .orElseThrow();
+        final double avg = input.stream().mapToDouble(d -> d).average().orElseThrow();
+        final double sum = input.stream().mapToDouble(d -> d).sum();
 
-        return new TickInfo(min, avg, max);
+        return new TickInfo(
+            min / NS_PER_MS,
+            avg / NS_PER_MS,
+            max / NS_PER_MS,
+            sum / NS_PER_MS);
     }
 
     private void assertOkay(TickInfo expected, TickInfo actual) {
@@ -43,9 +50,9 @@ public class TickTimeRecorderTest {
     @Test
     public void shouldCalculateCorrectAbsoluteTickTimes() {
         final int n = 10000;
-        final TickTimeRecorder recorder = new TickTimeRecorder(null, n, List.of(n));
+        final TickTimeRecorder recorder = new TickTimeRecorder(n, List.of(n));
 
-        final List<Double> numbers = generateRandomNumbers(n);
+        final List<Long> numbers = generateRandomNumbers(n);
         final TickInfo expected = toTickInfo(numbers);
 
         numbers.forEach(recorder::recordTickTime);
@@ -57,9 +64,9 @@ public class TickTimeRecorderTest {
     @Test
     public void shouldCalculateCorrectRangeTickTimes() {
         final int n = 20;
-        final double step = 1;
+        final long step = 1;
 
-        final List<Double> numbers = new ArrayList<>();
+        final List<Long> numbers = new ArrayList<>();
         numbers.add(step);
 
         for (int i = 1; i < n; i++) {
@@ -68,13 +75,13 @@ public class TickTimeRecorderTest {
 
         final List<Integer> ranges = List.of(n / 4, n / 2, n);
 
-        final TickTimeRecorder recorder = new TickTimeRecorder(null, n, ranges);
+        final TickTimeRecorder recorder = new TickTimeRecorder(n, ranges);
         numbers.forEach(recorder::recordTickTime);
 
         Collections.reverse(numbers);
 
-        final List<Double> quarterList = numbers.subList(0, n / 4);
-        final List<Double> halfList = numbers.subList(0, n / 2);
+        final List<Long> quarterList = numbers.subList(0, n / 4);
+        final List<Long> halfList = numbers.subList(0, n / 2);
 
         final TickInfo expectedQuarter = toTickInfo(quarterList);
         final TickInfo expectedHalf = toTickInfo(halfList);
@@ -99,9 +106,9 @@ public class TickTimeRecorderTest {
 
         }
 
-        final List<Double> numbers = generateRandomNumbers(n);
+        final List<Long> numbers = generateRandomNumbers(n);
 
-        final TickTimeRecorder recorder = new TickTimeRecorder(null, n, concreteRanges);
+        final TickTimeRecorder recorder = new TickTimeRecorder(n, concreteRanges);
         numbers.forEach(recorder::recordTickTime);
 
         Collections.reverse(numbers);
@@ -111,7 +118,7 @@ public class TickTimeRecorderTest {
 
         for (int i = 0; i < ranges; i++) {
             final int currentRange = concreteRanges.get(i);
-            final List<Double> currentValues = numbers.subList(0, currentRange);
+            final List<Long> currentValues = numbers.subList(0, currentRange);
             final TickInfo currentExpected = toTickInfo(currentValues);
 
             expected.add(currentExpected);

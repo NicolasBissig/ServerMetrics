@@ -10,10 +10,6 @@
 
     <repositories>
         <repository>
-            <id>papermc</id>
-            <url>https://papermc.io/repo/repository/maven-public/</url>
-        </repository>
-        <repository>
             <id>spigot-repo</id>
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         </repository>
@@ -35,8 +31,10 @@
         <micrometer.version>1.7.4</micrometer.version>
 
         <assembly-plugin.version>3.3.0</assembly-plugin.version>
+        <surefire-plugin.version>3.0.0-M5</surefire-plugin.version>
 
         <lombok.version>1.18.20</lombok.version>
+        <jb-annotations.version>22.0.0</jb-annotations.version>
 
         <junit.version>5.8.1</junit.version>
 
@@ -46,14 +44,9 @@
 
     <dependencies>
         <!-- Minecraft -->
-<!--        <dependency>
+        <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
-            <version>${mcapi.version}</version>
-        </dependency>-->
-        <dependency>
-            <groupId>io.papermc.paper</groupId>
-            <artifactId>paper-api</artifactId>
             <version>${mcapi.version}</version>
             <scope>provided</scope>
         </dependency>
@@ -70,6 +63,12 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>${jb-annotations.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -114,6 +113,11 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${surefire-plugin.version}</version>
             </plugin>
         </plugins>
     </build>

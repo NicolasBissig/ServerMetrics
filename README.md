@@ -1,2 +1,2 @@
 # ServerMetrics
-A minecraft server plugin for [PaperMC](https://papermc.io/) servers.
+A minecraft server plugin for [Spigot](https://getbukkit.org/download/spigot) compatible servers.

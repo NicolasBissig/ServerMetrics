@@ -22,7 +22,7 @@ public class ServerMetrics extends JavaPlugin {
             prometheus = new PrometheusSetup(getConfig().getConfigurationSection("prometheus"), this);
             prometheus.setup(registry);
         } else {
-            getSLF4JLogger().info("ServerMetrics is disabled and won't expose metrics!");
+            getLogger().warning("ServerMetrics is disabled and won't expose metrics!");
         }
     }
 

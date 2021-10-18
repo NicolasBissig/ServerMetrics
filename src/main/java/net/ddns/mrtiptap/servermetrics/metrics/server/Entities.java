@@ -31,7 +31,7 @@ public class Entities extends MinecraftServerBinder {
         Gauge.builder("minecraft.server.world.entities.total", () -> {
                 try {
                     final Future<Integer> amountOfEntities = getMinecraftServer().getScheduler()
-                        .callSyncMethod(getPlugin(), world::getEntityCount);
+                        .callSyncMethod(getPlugin(), () -> world.getEntities().size());
                     return amountOfEntities.get();
                 } catch (ExecutionException | InterruptedException e) {
                     Thread.currentThread().interrupt();
