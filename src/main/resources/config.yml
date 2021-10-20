@@ -4,6 +4,16 @@ prometheus:
   endpoint: /metrics
   port: 8080
 
+tags:
+  ip: false
+  port: false
+  name: false
+  version: false
+  bukkit-version: false
+  motd: false
+  custom-tags:
+    # key: "value"
+
 metrics:
   internal:
     ClassLoader: false
