@@ -16,6 +16,8 @@ public class ServerMetrics extends JavaPlugin {
         if (getConfig().getBoolean("enabled")) {
             final CompositeMeterRegistry registry = new CompositeMeterRegistry();
 
+            registry.config().commonTags(new CommonTags(this).gather());
+
             new SystemMetrics(getConfig().getConfigurationSection("metrics.internal")).bindTo(registry);
             new MinecraftServerMetrics(this, getConfig().getConfigurationSection("metrics.server")).bindTo(registry);
 
@@ -25,6 +27,7 @@ public class ServerMetrics extends JavaPlugin {
             getLogger().warning("ServerMetrics is disabled and won't expose metrics!");
         }
     }
+
 
     @Override
     public void onDisable() {
