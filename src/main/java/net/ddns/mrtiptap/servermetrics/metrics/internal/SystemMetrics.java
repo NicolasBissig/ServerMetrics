@@ -8,7 +8,6 @@ import io.micrometer.core.instrument.binder.system.ProcessorMetrics;
 import io.micrometer.core.instrument.binder.system.UptimeMetrics;
 import org.bukkit.configuration.ConfigurationSection;
 import org.jetbrains.annotations.NotNull;
-import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Supplier;
@@ -23,7 +22,7 @@ public class SystemMetrics implements MeterBinder {
         this.configuration = configuration;
 
         keyToMetric.put("ClassLoader", ClassLoaderMetrics::new);
-        keyToMetric.put("DiskSpace", () -> new DiskSpaceMetrics(new File("/")));
+        keyToMetric.put("DiskSpace", RootDiskSpaceMetrics::new);
         keyToMetric.put("FileDescriptor", FileDescriptorMetrics::new);
         keyToMetric.put("JvmGc", JvmGcMetrics::new);
         keyToMetric.put("JvmHeapPressure", JvmHeapPressureMetrics::new);
