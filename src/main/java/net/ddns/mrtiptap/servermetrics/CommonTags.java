@@ -53,11 +53,13 @@ public class CommonTags {
 
     private void createTagIfEnabled(String key, Callable<Object> value) {
         try {
-            final String concreteValue = value.call().toString();
-            if (!concreteValue.equals("")) {
-                commonTags.add(Tag.of(key, concreteValue));
-            } else {
-                logger.warning("Cannot create common tag " + key + ": value is not defined");
+            if (tagConfig.getBoolean(key)) {
+                final String concreteValue = value.call().toString();
+                if (!concreteValue.equals("")) {
+                    commonTags.add(Tag.of(key, concreteValue));
+                } else {
+                    logger.warning("Cannot create common tag " + key + ": value is not defined");
+                }
             }
         } catch (Exception e) {
             logger.warning("Cannot create common tag " + key + ": " + e.getMessage());
