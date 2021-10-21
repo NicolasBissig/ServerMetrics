@@ -4,6 +4,7 @@ import io.micrometer.core.instrument.composite.CompositeMeterRegistry;
 import net.ddns.mrtiptap.servermetrics.metrics.internal.SystemMetrics;
 import net.ddns.mrtiptap.servermetrics.metrics.server.MinecraftServerMetrics;
 import net.ddns.mrtiptap.servermetrics.monitoringsystems.prometheus.PrometheusSetup;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class ServerMetrics extends JavaPlugin {
@@ -12,16 +13,17 @@ public class ServerMetrics extends JavaPlugin {
     @Override
     public void onEnable() {
         saveDefaultConfig();
+        final FileConfiguration config = getConfig();
 
-        if (getConfig().getBoolean("enabled")) {
+        if (config.getBoolean("enabled")) {
             final CompositeMeterRegistry registry = new CompositeMeterRegistry();
 
             registry.config().commonTags(new CommonTags(this).gather());
 
-            new SystemMetrics(getConfig().getConfigurationSection("metrics.internal")).bindTo(registry);
-            new MinecraftServerMetrics(this, getConfig().getConfigurationSection("metrics.server")).bindTo(registry);
+            new SystemMetrics(config.getConfigurationSection("metrics.internal")).bindTo(registry);
+            new MinecraftServerMetrics(this, config.getConfigurationSection("metrics.server")).bindTo(registry);
 
-            prometheus = new PrometheusSetup(getConfig().getConfigurationSection("prometheus"), this);
+            prometheus = new PrometheusSetup(config.getConfigurationSection("prometheus"), this);
             prometheus.setup(registry);
         } else {
             getLogger().warning("ServerMetrics is disabled and won't expose metrics!");
@@ -31,6 +33,9 @@ public class ServerMetrics extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        prometheus.stop();
+        if (prometheus != null) {
+            prometheus.stop();
+            prometheus = null;
+        }
     }
 }
