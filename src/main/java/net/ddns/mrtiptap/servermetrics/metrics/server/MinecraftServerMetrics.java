@@ -23,6 +23,7 @@ public class MinecraftServerMetrics implements MeterBinder {
         keyToMetric.put("Chunks", c -> new Chunks(plugin, c));
         keyToMetric.put("Players", c -> new Players(plugin, c));
         keyToMetric.put("PlayerStatistics", c -> new PlayerStatistics(plugin, c));
+        keyToMetric.put("WorldSize", c -> new WorldSize(plugin, c));
     }
 
     @Override

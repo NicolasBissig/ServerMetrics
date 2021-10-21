@@ -34,3 +34,4 @@ metrics:
     Chunks: false
     Players: false
     PlayerStatistics: false
+    WorldSize: false
