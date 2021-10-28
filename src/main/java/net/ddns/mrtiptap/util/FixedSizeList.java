@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.ToString;
 import org.jetbrains.annotations.NotNull;
 import java.util.Iterator;
-import java.util.LinkedList;
+import java.util.concurrent.ConcurrentLinkedDeque;
 
 @ToString
 @EqualsAndHashCode
@@ -13,24 +13,25 @@ public class FixedSizeList<T> implements Iterable<T> {
 
     @Getter
     private final int maximumSize;
-    private final LinkedList<T> elements;
+    private final ConcurrentLinkedDeque<T> elements;
+    private int size = 0;
 
     public FixedSizeList(int maximumSize) {
         this.maximumSize = maximumSize;
-        elements = new LinkedList<>();
+        elements = new ConcurrentLinkedDeque<>();
     }
 
     public void push(T newElement) {
-        final int currentSize = elements.size();
-
-        if (currentSize + 1 > maximumSize) {
+        if (size + 1 > maximumSize) {
             elements.removeLast();
+        } else {
+            size++;
         }
         elements.push(newElement);
     }
 
     public int size() {
-        return elements.size();
+        return size;
     }
 
     @NotNull
