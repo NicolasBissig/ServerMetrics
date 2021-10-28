@@ -17,8 +17,10 @@ public class TickTimeRecorder {
     private final Plugin plugin;
     private final FixedSizeList<Long> tickDurations;
     private final List<Integer> ranges;
-
     private final long[] tickDurationArray;
+
+    private long[] lastTickDurationArray = null;
+    private int tickIndex = -1;
 
     public TickTimeRecorder(Plugin plugin, int ticksToRecord, List<Integer> ranges) {
         this.plugin = plugin;
@@ -27,7 +29,7 @@ public class TickTimeRecorder {
         tickDurationArray = findTickDurationArray();
         tickDurations = new FixedSizeList<>(ticksToRecord);
 
-        plugin.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, this::onTick, 0, 0);
+        findTickIndexAndStartRecording();
     }
 
     /**
@@ -87,11 +89,38 @@ public class TickTimeRecorder {
         return longestArray;
     }
 
-    private void onTick() {
-        final long duration = tickDurationArray[0];
-        if (duration > 0) { // otherwise, a lot of 0 duration ticks would be recorded on server start
-            recordTickTime(duration);
+    private void findTickIndexAndStartRecording() {
+        lastTickDurationArray = tickDurationArray.clone();
+
+        plugin.getServer().getScheduler().runTaskLater(plugin, this::afterFirstTick, 1);
+    }
+
+    private void afterFirstTick() {
+        this.tickIndex = firstDifferentTickInArrays();
+
+        if (tickIndex >= 0) {
+            lastTickDurationArray = null;
+            plugin.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, this::onTick, 0, 0);
+        } else {
+            plugin.getServer().getScheduler().runTaskLater(plugin, this::afterFirstTick, 1);
         }
+    }
+
+    private int firstDifferentTickInArrays() {
+        for (int i = 0; i < tickDurationArray.length; i++) {
+            if (tickDurationArray[i] != lastTickDurationArray[i]) {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
+    private void onTick() {
+        tickIndex %= 100;
+        final long duration = tickDurationArray[tickIndex];
+        recordTickTime(duration);
+        tickIndex++;
     }
 
     void recordTickTime(long duration) {
