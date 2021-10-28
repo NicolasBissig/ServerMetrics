@@ -7,8 +7,10 @@ import org.bukkit.World;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
+import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
+import java.util.function.Supplier;
 
 public class Entities extends MinecraftServerBinder {
 
@@ -28,18 +30,29 @@ public class Entities extends MinecraftServerBinder {
     }
 
     private void registerChunksLoadedForWorld(World world) {
-        Gauge.builder("minecraft.server.world.entities.total", () -> {
-                try {
-                    final Future<Integer> amountOfEntities = getMinecraftServer().getScheduler()
-                        .callSyncMethod(getPlugin(), () -> world.getEntities().size());
-                    return amountOfEntities.get();
-                } catch (ExecutionException | InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                    return null;
-                }
-            })
+        Gauge.builder("minecraft.server.world.entities.total",
+                asSyncSupplier(() -> world.getEntities().size()))
             .description("Amount of total entities in this world")
             .tags("world", world.getName())
             .register(registry);
+
+        Gauge.builder("minecraft.server.world.entities.alive.total",
+                asSyncSupplier(() -> world.getLivingEntities().size()))
+            .description("Amount of total alive entities in this world")
+            .tags("world", world.getName())
+            .register(registry);
+    }
+
+    private Supplier<Number> asSyncSupplier(Callable<Number> callable) {
+        return () -> {
+            try {
+                final Future<Number> amountOfEntities = getMinecraftServer().getScheduler()
+                    .callSyncMethod(getPlugin(), callable);
+                return amountOfEntities.get();
+            } catch (ExecutionException | InterruptedException e) {
+                Thread.currentThread().interrupt();
+                return null;
+            }
+        };
     }
 }
