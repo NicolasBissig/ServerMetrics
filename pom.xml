@@ -34,7 +34,7 @@
         <surefire-plugin.version>3.0.0-M5</surefire-plugin.version>
 
         <lombok.version>1.18.22</lombok.version>
-        <jb-annotations.version>22.0.0</jb-annotations.version>
+        <jb-annotations.version>23.0.0</jb-annotations.version>
 
         <junit.version>5.8.1</junit.version>
 
