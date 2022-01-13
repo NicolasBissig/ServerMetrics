@@ -28,7 +28,7 @@
 
         <!-- Dependencies -->
         <mcapi.version>1.17.1-R0.1-SNAPSHOT</mcapi.version>
-        <micrometer.version>1.7.5</micrometer.version>
+        <micrometer.version>1.8.2</micrometer.version>
 
         <assembly-plugin.version>3.3.0</assembly-plugin.version>
         <surefire-plugin.version>3.0.0-M5</surefire-plugin.version>
