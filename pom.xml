@@ -31,7 +31,7 @@
         <micrometer.version>1.7.5</micrometer.version>
 
         <assembly-plugin.version>3.3.0</assembly-plugin.version>
-        <surefire-plugin.version>3.0.0-M5</surefire-plugin.version>
+        <surefire-plugin.version>3.0.0-M7</surefire-plugin.version>
 
         <lombok.version>1.18.22</lombok.version>
         <jb-annotations.version>22.0.0</jb-annotations.version>
